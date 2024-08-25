@@ -1,0 +1,4 @@
+main: org.hinoob.security.SecurityPlugin
+name: securityplugin
+version: 1
+author: hinoob

@@ -12,11 +12,21 @@ public class PacketListener extends PacketListenerAbstract {
     public void onPacketReceive(PacketReceiveEvent event) {
         SUser user = UserManager.getUser(event.getUser());
 
+        user.getModules().forEach(module -> {
+            if(module.shouldBeEnabled()) {
+                module.receive(event);
+            }
+        });
     }
 
     @Override
     public void onPacketSend(PacketSendEvent event) {
         SUser user = UserManager.getUser(event.getUser());
 
+        user.getModules().forEach(module -> {
+            if(module.shouldBeEnabled()) {
+                module.send(event);
+            }
+        });
     }
 }
