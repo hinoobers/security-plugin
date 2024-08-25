@@ -23,6 +23,7 @@ public class SUser {
 
     private void load() {
         if(modules.isEmpty()) {
+            modules.add(new Log4J(this));
             modules.add(new InvalidMovement(this));
             modules.add(new InvalidAttack(this));
             modules.add(new PacketLimiter(this));
