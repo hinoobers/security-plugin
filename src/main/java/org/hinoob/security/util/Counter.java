@@ -12,7 +12,6 @@ public class Counter {
 
     public void start() {
         if(!started) {
-            System.out.println("Starting counter");
             start = System.currentTimeMillis();
             started = true;
         }
@@ -32,7 +31,6 @@ public class Counter {
     }
 
     public void reset() {
-        System.out.println("Resetting counter");
         count = 0;
         start = System.currentTimeMillis();
     }
