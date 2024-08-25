@@ -14,7 +14,10 @@ public class PacketListener extends PacketListenerAbstract {
 
         user.getModules().forEach(module -> {
             if(module.shouldBeEnabled()) {
-                module.receive(event);
+                boolean result = module.receive(event); // true = everything gone well
+                if(!result) {
+                    event.setCancelled(true);
+                }
             }
         });
     }
@@ -25,7 +28,10 @@ public class PacketListener extends PacketListenerAbstract {
 
         user.getModules().forEach(module -> {
             if(module.shouldBeEnabled()) {
-                module.send(event);
+                boolean result = module.send(event); // true = everything gone well
+                if(!result) {
+                    event.setCancelled(true);
+                }
             }
         });
     }
