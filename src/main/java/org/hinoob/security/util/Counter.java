@@ -3,14 +3,21 @@ package org.hinoob.security.util;
 public class Counter {
 
     private long start;
-    private long millis;
-
+    private boolean started;
     private int count;
 
-    public Counter(long millis) {
-        this.millis = millis;
-        this.start = System.currentTimeMillis();
+    public Counter() {
+
     }
+
+    public void start() {
+        if(!started) {
+            System.out.println("Starting counter");
+            start = System.currentTimeMillis();
+            started = true;
+        }
+    }
+
 
     public void increment() {
         count++;
@@ -20,12 +27,17 @@ public class Counter {
         return count;
     }
 
+    public long getStart() {
+        return start;
+    }
+
     public void reset() {
+        System.out.println("Resetting counter");
         count = 0;
         start = System.currentTimeMillis();
     }
 
-    public boolean hasReached() {
+    public boolean hasReached(long millis) {
         return System.currentTimeMillis() - start >= millis;
     }
 }

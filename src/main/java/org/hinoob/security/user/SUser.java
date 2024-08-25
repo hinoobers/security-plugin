@@ -22,16 +22,16 @@ public class SUser {
     }
 
     private void load() {
-        modules.clear();
-
-        modules.add(new InvalidMovement(this));
-        modules.add(new InvalidAttack(this));
-        modules.add(new PacketLimiter(this));
-        modules.add(new InvalidSign(this));;
+        if(modules.isEmpty()) {
+            modules.add(new InvalidMovement(this));
+            modules.add(new InvalidAttack(this));
+            modules.add(new PacketLimiter(this));
+            modules.add(new InvalidSign(this));
+        }
     }
 
-    public Collection<Module> getModules() {
-        return Collections.unmodifiableCollection(modules);
+    public List<Module> getModules() {
+        return modules;
     }
 
     public UUID getUUID() {

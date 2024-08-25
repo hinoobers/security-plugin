@@ -8,15 +8,18 @@ import java.util.UUID;
 
 public class UserManager {
 
-    private static Map<User, SUser> userMap = new HashMap<>();
+    private static final Map<User, SUser> userMap = new HashMap<>();
+
+    public static void create(User user) {
+        userMap.put(user, new SUser(user));
+    }
 
     public static SUser getUser(User user) {
-        if(userMap.containsKey(user)) {
-            return new SUser(user);
-        } else {
-            userMap.put(user, new SUser(user));
-            return getUser(user);
-        }
+        return userMap.getOrDefault(user, null);
+    }
+
+    public static int getSize() {
+        return userMap.size();
     }
 
     public static void remove(User user) {
