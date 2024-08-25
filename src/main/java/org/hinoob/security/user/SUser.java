@@ -4,6 +4,9 @@ import com.github.retrooper.packetevents.protocol.ConnectionState;
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.hinoob.security.module.Module;
 import org.hinoob.security.module.impl.*;
+import org.hinoob.security.module.impl.block.InvalidSign;
+import org.hinoob.security.module.impl.inventory.InvalidCreative;
+import org.hinoob.security.module.impl.inventory.InvalidSlot;
 
 import java.util.*;
 
@@ -24,6 +27,9 @@ public class SUser {
             modules.add(new InvalidAttack(this));
             modules.add(new PacketLimiter(this));
             modules.add(new InvalidSettings(this));
+            modules.add(new InvalidSteer(this));
+            modules.add(new InvalidCreative(this));
+            modules.add(new InvalidSlot(this));
             modules.add(new InvalidSign(this));
         }
     }

@@ -1,4 +1,4 @@
-package org.hinoob.security.module.impl;
+package org.hinoob.security.module.impl.block;
 
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
