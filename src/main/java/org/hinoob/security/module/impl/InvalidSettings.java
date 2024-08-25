@@ -6,6 +6,7 @@ import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSettings;
 import org.hinoob.security.module.Module;
 import org.hinoob.security.user.SUser;
+import org.hinoob.security.util.LocaleUtil;
 
 public class InvalidSettings extends Module {
     public InvalidSettings(SUser user) {
@@ -22,7 +23,13 @@ public class InvalidSettings extends Module {
         if(event.getPacketType() == PacketType.Play.Client.CLIENT_SETTINGS) {
             WrapperPlayClientSettings wrapper = new WrapperPlayClientSettings(event);
 
-            if(wrapper.getViewDistance() > 32) {
+            int viewDistance = wrapper.getViewDistance();
+            if(viewDistance < 0 || viewDistance > 32) {
+                return kick();
+            }
+
+            if(!LocaleUtil.exists(wrapper.getLocale().toLowerCase())) {
+                System.out.println("Locale: " + wrapper.getLocale().toLowerCase());
                 return kick();
             }
         }
