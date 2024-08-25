@@ -20,7 +20,6 @@ public class PacketLimiter extends Module {
         counter.start();
 
         if(counter.hasReached(1000L)) {
-            System.out.println("packets=" + counter.getCount());
             int packets = counter.getCount();
             if(packets > 2000) {
                 return kick();
