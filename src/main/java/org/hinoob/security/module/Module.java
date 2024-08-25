@@ -18,6 +18,7 @@ public abstract class Module {
     }
 
     public boolean kick() {
+        System.out.println("Kicking for " + this.getClass().getSimpleName());
         if(user.getConnectionState() == ConnectionState.LOGIN) {
             try {
                 user.sendPacket(new WrapperPlayServerDisconnect(Component.text("You have been kicked.").color(TextColor.color(255,0,0))));

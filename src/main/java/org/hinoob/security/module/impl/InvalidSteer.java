@@ -27,11 +27,16 @@ public class InvalidSteer extends Module {
             float forward = wrapper.getForward();
             float sideways = wrapper.getSideways();
 
-            // -0.98f, 0.98f
-            // tested on 1.8 & 1.21
+            if(forward != 0) {
+                if(filter(forward)) {
+                    return kick();
+                }
+            }
 
-            if(Math.abs(forward - 0.98f) > .01 || Math.abs(sideways) > .01) {
-                return kick();
+            if(sideways != 0) {
+                if(filter(sideways)) {
+                    return kick();
+                }
             }
         }
 
@@ -41,6 +46,10 @@ public class InvalidSteer extends Module {
     @Override
     public boolean send(PacketSendEvent event) {
         return true;
+    }
+
+    private boolean filter(float f) {
+        return f < -0.98f || f > 0.98f;
     }
 
 }
