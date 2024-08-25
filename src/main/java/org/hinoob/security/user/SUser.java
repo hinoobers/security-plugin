@@ -3,10 +3,7 @@ package org.hinoob.security.user;
 import com.github.retrooper.packetevents.protocol.ConnectionState;
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.hinoob.security.module.Module;
-import org.hinoob.security.module.impl.InvalidAttack;
-import org.hinoob.security.module.impl.InvalidMovement;
-import org.hinoob.security.module.impl.InvalidSign;
-import org.hinoob.security.module.impl.PacketLimiter;
+import org.hinoob.security.module.impl.*;
 
 import java.util.*;
 
@@ -26,6 +23,7 @@ public class SUser {
             modules.add(new InvalidMovement(this));
             modules.add(new InvalidAttack(this));
             modules.add(new PacketLimiter(this));
+            modules.add(new InvalidSettings(this));
             modules.add(new InvalidSign(this));
         }
     }
