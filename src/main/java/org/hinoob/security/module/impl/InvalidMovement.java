@@ -37,7 +37,12 @@ public class InvalidMovement extends Module {
                 }
 
                 if(!teleported) {
-                    if(Math.abs(wrapper.getLocation().getX() - this.lastX) > 100 || Math.abs(wrapper.getLocation().getY() - this.lastY) > 100 || Math.abs(wrapper.getLocation().getZ() - this.lastZ) > 100) {
+                    // 8+ blocks = teleport
+                    if(Math.abs(wrapper.getLocation().getX() - this.lastX) > 8 || Math.abs(wrapper.getLocation().getY() - this.lastY) > 8 || Math.abs(wrapper.getLocation().getZ() - this.lastZ) > 8) {
+                        return kick();
+                    }
+
+                    if(Math.abs(wrapper.getLocation().getY() - this.lastY) > 5) {
                         return kick();
                     }
                 } else if(wrapper.hasRotationChanged()){
