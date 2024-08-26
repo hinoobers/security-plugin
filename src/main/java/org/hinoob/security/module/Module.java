@@ -12,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.hinoob.security.user.SUser;
+import org.hinoob.security.util.Configuration;
 
 public abstract class Module {
 
@@ -29,6 +30,10 @@ public abstract class Module {
             }
         }
 
+        if(!Configuration.KICK) {
+            // Packet still gets cancelled, just no kick
+            return false;
+        }
         if(user.getConnectionState() == ConnectionState.LOGIN) {
             try {
                 user.sendPacket(new WrapperPlayServerDisconnect(Component.text("You have been kicked.").color(TextColor.color(255,0,0))));
