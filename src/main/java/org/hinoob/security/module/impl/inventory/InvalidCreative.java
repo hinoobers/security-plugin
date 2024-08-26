@@ -28,10 +28,12 @@ public class InvalidCreative extends Module {
 
             Player player = (Player) event.getPlayer();
             if(player.getGameMode() != GameMode.CREATIVE) {
+                player.sendMessage("You are not in creative mode " + player.getGameMode());
                 return kick();
             }
 
-            if(wrapper.getSlot() < 0 || wrapper.getSlot() > 45) {
+            if((wrapper.getSlot() < 0 && wrapper.getSlot() != -999) || wrapper.getSlot() > 45) {
+                player.sendMessage("Invalid slot" + wrapper.getSlot());
                 return kick();
             }
         }

@@ -6,6 +6,7 @@ import org.hinoob.security.module.Module;
 import org.hinoob.security.module.impl.*;
 import org.hinoob.security.module.impl.block.InvalidSign;
 import org.hinoob.security.module.impl.inventory.InvalidCreative;
+import org.hinoob.security.module.impl.inventory.InvalidItem;
 import org.hinoob.security.module.impl.inventory.InvalidSlot;
 
 import java.util.*;
@@ -34,6 +35,7 @@ public class SUser {
             modules.add(new InvalidSign(this));
             modules.add(new Connection(this));
             modules.add(new Building(this));
+            modules.add(new InvalidItem(this));
         }
     }
 
