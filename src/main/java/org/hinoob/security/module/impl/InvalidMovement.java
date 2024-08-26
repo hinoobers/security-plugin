@@ -2,7 +2,10 @@ package org.hinoob.security.module.impl;
 
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
+import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPlayerFlying;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerPositionAndLook;
+import org.bukkit.entity.Player;
 import org.hinoob.security.module.Module;
 import org.hinoob.security.user.SUser;
 
@@ -13,6 +16,7 @@ public class InvalidMovement extends Module {
     }
 
     private double lastX, lastY, lastZ;
+    private boolean teleported = false;
 
     @Override
     public boolean receive(PacketReceiveEvent event) {
@@ -32,8 +36,12 @@ public class InvalidMovement extends Module {
                     return kick();
                 }
 
-                if(Math.abs(wrapper.getLocation().getX() - this.lastX) > 100 || Math.abs(wrapper.getLocation().getY() - this.lastY) > 100 || Math.abs(wrapper.getLocation().getZ() - this.lastZ) > 100) {
-                    return kick();
+                if(!teleported) {
+                    if(Math.abs(wrapper.getLocation().getX() - this.lastX) > 100 || Math.abs(wrapper.getLocation().getY() - this.lastY) > 100 || Math.abs(wrapper.getLocation().getZ() - this.lastZ) > 100) {
+                        return kick();
+                    }
+                } else if(wrapper.hasRotationChanged()){
+                    teleported = false;
                 }
 
                 this.lastX = wrapper.getLocation().getX();
@@ -47,6 +55,12 @@ public class InvalidMovement extends Module {
 
     @Override
     public boolean send(PacketSendEvent event) {
+        if(event.getPacketType() == PacketType.Play.Server.PLAYER_POSITION_AND_LOOK) {
+            WrapperPlayServerPlayerPositionAndLook wrapper = new WrapperPlayServerPlayerPositionAndLook(event);
+
+            ((Player)event.getPlayer()).sendMessage("TP");
+            this.teleported = true;
+        }
         return true;
     }
 
