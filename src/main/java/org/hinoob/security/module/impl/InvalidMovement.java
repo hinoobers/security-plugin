@@ -12,6 +12,8 @@ public class InvalidMovement extends Module {
         super(user);
     }
 
+    private double lastX, lastY, lastZ;
+
     @Override
     public boolean receive(PacketReceiveEvent event) {
         if(WrapperPlayClientPlayerFlying.isFlying(event.getPacketType())) {
@@ -29,6 +31,14 @@ public class InvalidMovement extends Module {
                 if(invalidX || invalidY || invalidZ) {
                     return kick();
                 }
+
+                if(Math.abs(wrapper.getLocation().getX() - this.lastX) > 100 || Math.abs(wrapper.getLocation().getY() - this.lastY) > 100 || Math.abs(wrapper.getLocation().getZ() - this.lastZ) > 100) {
+                    return kick();
+                }
+
+                this.lastX = wrapper.getLocation().getX();
+                this.lastY = wrapper.getLocation().getY();
+                this.lastZ = wrapper.getLocation().getZ();
             }
         }
 
