@@ -43,6 +43,10 @@ public class SUser {
         return user.getUUID();
     }
 
+    public String getName() {
+        return user.getName();
+    }
+
     public int getEntityId() {
         return user.getEntityId();
     }

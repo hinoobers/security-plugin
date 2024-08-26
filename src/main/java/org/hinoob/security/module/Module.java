@@ -7,6 +7,9 @@ import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDisconnect;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.hinoob.security.user.SUser;
 
 public abstract class Module {
@@ -19,6 +22,12 @@ public abstract class Module {
 
     public boolean kick() {
         System.out.println("Kicking for " + this.getClass().getSimpleName());
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            if(player.hasPermission("security.alerts")) {
+                player.sendMessage(ChatColor.WHITE + user.getName() + ChatColor.GRAY + " was " + ChatColor.WHITE + "kicked" + ChatColor.GRAY + " for " + ChatColor.WHITE + this.getClass().getSimpleName() + ChatColor.GRAY + "!");
+            }
+        }
+
         if(user.getConnectionState() == ConnectionState.LOGIN) {
             try {
                 user.sendPacket(new WrapperPlayServerDisconnect(Component.text("You have been kicked.").color(TextColor.color(255,0,0))));
