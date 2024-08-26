@@ -29,6 +29,8 @@ public class SecurityPlugin extends JavaPlugin {
 //        }
         PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
         PacketEvents.getAPI().load();
+
+        getLogger().info("Loaded! (Waiting to enable)");
     }
 
     @Override
