@@ -22,8 +22,12 @@ public class SecurityPlugin extends JavaPlugin {
         PacketEvents.getAPI().init();
 
         PacketEvents.getAPI().getEventManager().registerListener(new ConnectionListener());
-        PacketEvents.getAPI().getEventManager().registerListener(new PacketListener());
-        getServer().getPluginManager().registerEvents(new BukkitListener(), this);
+        if(Configuration.ENABLED) {
+            PacketEvents.getAPI().getEventManager().registerListener(new PacketListener());
+            getServer().getPluginManager().registerEvents(new BukkitListener(), this);
+        } else {
+            getLogger().warning("Plugin is disabled from config!");
+        }
 
         Configuration.load(this);
 

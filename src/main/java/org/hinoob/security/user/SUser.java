@@ -33,6 +33,7 @@ public class SUser {
             modules.add(new InvalidSlot(this));
             modules.add(new InvalidSign(this));
             modules.add(new Connection(this));
+            modules.add(new Building(this));
         }
     }
 
