@@ -61,9 +61,6 @@ public class InvalidMovement extends Module {
     @Override
     public boolean send(PacketSendEvent event) {
         if(event.getPacketType() == PacketType.Play.Server.PLAYER_POSITION_AND_LOOK) {
-            WrapperPlayServerPlayerPositionAndLook wrapper = new WrapperPlayServerPlayerPositionAndLook(event);
-
-            ((Player)event.getPlayer()).sendMessage("TP");
             this.teleported = true;
         }
         return true;

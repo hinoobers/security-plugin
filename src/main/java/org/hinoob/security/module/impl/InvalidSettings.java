@@ -29,7 +29,6 @@ public class InvalidSettings extends Module {
             }
 
             if(!LocaleUtil.exists(wrapper.getLocale().toLowerCase())) {
-                System.out.println("Locale: " + wrapper.getLocale().toLowerCase());
                 return kick();
             }
         }
