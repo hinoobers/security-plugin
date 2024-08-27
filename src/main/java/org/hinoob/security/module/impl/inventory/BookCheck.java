@@ -31,6 +31,10 @@ public class BookCheck extends Module {
             if(wrapper.getPages().size() > 200) {
                 return kick();
             }
+
+            if(wrapper.getTitle().length() > 32) {
+                return kick();
+            }
         }
 
         return true;

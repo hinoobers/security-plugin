@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity;
+import org.bukkit.entity.Player;
 import org.hinoob.security.module.Module;
 import org.hinoob.security.user.SUser;
 
@@ -23,6 +24,11 @@ public class InvalidAttack extends Module {
             WrapperPlayClientInteractEntity wrapper = new WrapperPlayClientInteractEntity(event);
 
             if(wrapper.getEntityId() == user.getEntityId()) {
+                return kick();
+            }
+
+            Player player = (Player) event.getPlayer();
+            if(player.getNearbyEntities(6.0,6.0,6.0).isEmpty()) {
                 return kick();
             }
         }
