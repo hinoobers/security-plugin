@@ -1,2 +1,3 @@
 kick: false # Whether to kick players if they flagged
 enabled: true
+clear-logs: true # Whether to clear logs on startup (3 days older >)

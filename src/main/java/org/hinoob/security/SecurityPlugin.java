@@ -9,9 +9,17 @@ import org.hinoob.security.listener.ConnectionListener;
 import org.hinoob.security.listener.PacketListener;
 import org.hinoob.security.util.Configuration;
 import org.hinoob.security.util.FileDownloader;
+import org.hinoob.security.util.FileUtil;
 
 import java.io.File;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class SecurityPlugin extends JavaPlugin {
 
@@ -42,6 +50,27 @@ public class SecurityPlugin extends JavaPlugin {
         if(Configuration.ENABLED) {
             PacketEvents.getAPI().getEventManager().registerListener(new PacketListener());
             getServer().getPluginManager().registerEvents(new BukkitListener(), this);
+
+            if(getConfig().getBoolean("clear-logs")) {
+                getLogger().info("Clearing logs...");
+                File logsFolder = new File(Bukkit.getWorldContainer(), "logs");
+                DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                int log = 0;
+                for(File file : logsFolder.listFiles()) {
+                    if(file.getName().equals("latest.log")) continue;
+
+                    String date = file.getName().replaceAll(".log.gz", ""); // 2024-01-01-1.log.gz
+                    // remove -1 from the end
+                    date = date.substring(0, date.length() - 2);
+                    LocalDate logDate = LocalDate.parse(date, sdf);
+                    Period period = Period.between(logDate, LocalDate.now());
+                    if(period.getDays() > 3) {
+                        FileUtil.delete(file);
+                        ++log;
+                    }
+                }
+                getLogger().info("Cleared " + log + " logs!");
+            }
         } else {
             getLogger().warning("Plugin is disabled from config!");
         }
