@@ -2,6 +2,7 @@ package org.hinoob.security.module.impl;
 
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
+import org.bukkit.Bukkit;
 import org.hinoob.security.module.Module;
 import org.hinoob.security.user.SUser;
 import org.hinoob.security.user.UserManager;
@@ -41,8 +42,7 @@ public class PacketLimiter extends Module {
     @Override
     public boolean shouldBeEnabled() {
         // ViaVersion has its own packet limiter built in
-        //return !Bukkit.getPluginManager().isPluginEnabled("ViaVersion");
-        return true;
+        return !Bukkit.getPluginManager().isPluginEnabled("ViaVersion");
     }
 
 }
