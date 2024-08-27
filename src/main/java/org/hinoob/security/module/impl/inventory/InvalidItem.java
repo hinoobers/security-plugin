@@ -3,6 +3,7 @@ package org.hinoob.security.module.impl.inventory;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
+import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCreativeInventoryAction;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPickItem;
 import org.hinoob.security.module.Module;
 import org.hinoob.security.user.SUser;
@@ -21,10 +22,12 @@ public class InvalidItem extends Module {
     @Override
     public boolean receive(PacketReceiveEvent event) {
         System.out.println("Received packet " + event.getPacketType().getName());
-        if(event.getPacketType() == PacketType.Play.Client.PICK_ITEM) {
-            WrapperPlayClientPickItem wrapper = new WrapperPlayClientPickItem(event);
+        if(event.getPacketType() == PacketType.Play.Client.CREATIVE_INVENTORY_ACTION) {
+            WrapperPlayClientCreativeInventoryAction wrapper = new WrapperPlayClientCreativeInventoryAction(event);
 
-            System.out.println(wrapper.getSlot());
+            if(wrapper.getItemStack().getNBT().getTags().size() > 50) {
+                return kick();
+            }
         }
 
         return true;
