@@ -5,10 +5,9 @@ import com.github.retrooper.packetevents.protocol.player.User;
 import org.hinoob.security.module.Module;
 import org.hinoob.security.module.impl.*;
 import org.hinoob.security.module.impl.block.InvalidSign;
-import org.hinoob.security.module.impl.inventory.InvalidCreative;
-import org.hinoob.security.module.impl.inventory.InvalidItem;
-import org.hinoob.security.module.impl.inventory.InvalidSlot;
+import org.hinoob.security.module.impl.inventory.*;
 
+import java.awt.print.Book;
 import java.util.*;
 
 public class SUser {
@@ -36,6 +35,8 @@ public class SUser {
             modules.add(new Connection(this));
             modules.add(new Building(this));
             modules.add(new InvalidItem(this));
+            modules.add(new InvalidWindow(this));
+            modules.add(new BookCheck(this));
         }
     }
 

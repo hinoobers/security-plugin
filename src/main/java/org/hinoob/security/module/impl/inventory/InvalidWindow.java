@@ -1,6 +1,7 @@
 package org.hinoob.security.module.impl.inventory;
 
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
+import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
 import org.hinoob.security.module.Module;
@@ -31,6 +32,11 @@ public class InvalidWindow extends Module {
             }
         }
 
+        return true;
+    }
+
+    @Override
+    public boolean send(PacketSendEvent event) {
         return true;
     }
 
