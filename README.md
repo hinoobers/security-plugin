@@ -10,3 +10,6 @@ Configuration is self-explanatory or there is a comment following what it means.
 <i>Drag'n & Drop ready</i> 
 
 You can compile it or get the jar from the releases section.
+
+![image](https://github.com/user-attachments/assets/ed0ee82c-2c56-4d05-86eb-0c9bb6e324d3)
+
